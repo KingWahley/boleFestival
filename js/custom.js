@@ -96,6 +96,138 @@
       }
     }
 
+    // EXPERIENCE CAROUSEL
+    var experienceCarousel = document.querySelector('.experience-carousel');
+    if (experienceCarousel) {
+      var experienceCards = Array.prototype.slice.call(
+        experienceCarousel.querySelectorAll('.experience-card')
+      );
+      var experienceDots = Array.prototype.slice.call(
+        document.querySelectorAll('.experience-dots span')
+      );
+
+      var carouselTimer = null;
+      var carouselIntervalMs = 3200;
+      var carouselIndex = 0;
+
+      function scrollCardIntoView(card) {
+        if (!card) {
+          return;
+        }
+        var targetLeft = card.offsetLeft - (experienceCarousel.clientWidth - card.clientWidth) / 2;
+        experienceCarousel.scrollTo({
+          left: targetLeft,
+          behavior: 'smooth'
+        });
+      }
+
+      function setActiveCard(nextIndex, shouldScroll) {
+        if (!experienceCards.length) {
+          return;
+        }
+
+        carouselIndex = (nextIndex + experienceCards.length) % experienceCards.length;
+
+        experienceCards.forEach(function(card, idx) {
+          card.classList.toggle('is-active', idx === carouselIndex);
+        });
+
+        if (experienceDots.length) {
+          experienceDots.forEach(function(dot, idx) {
+            dot.classList.toggle('is-active', idx === carouselIndex);
+          });
+        }
+
+        if (shouldScroll !== false) {
+          scrollCardIntoView(experienceCards[carouselIndex]);
+        }
+      }
+
+      function rotateCarousel() {
+        setActiveCard(carouselIndex + 1);
+      }
+
+      function startCarousel() {
+        if (carouselTimer) {
+          return;
+        }
+        carouselTimer = setInterval(rotateCarousel, carouselIntervalMs);
+      }
+
+      function stopCarousel() {
+        if (!carouselTimer) {
+          return;
+        }
+        clearInterval(carouselTimer);
+        carouselTimer = null;
+      }
+
+      setActiveCard(0, false);
+      startCarousel();
+
+      experienceCarousel.addEventListener('mouseenter', stopCarousel);
+      experienceCarousel.addEventListener('mouseleave', startCarousel);
+
+      experienceCarousel.addEventListener('scroll', function() {
+        if (!experienceCards.length) {
+          return;
+        }
+        var carouselRect = experienceCarousel.getBoundingClientRect();
+        var carouselCenter = carouselRect.left + carouselRect.width / 2;
+        var closestIndex = 0;
+        var closestDistance = Infinity;
+
+        experienceCards.forEach(function(card, idx) {
+          var cardRect = card.getBoundingClientRect();
+          var cardCenter = cardRect.left + cardRect.width / 2;
+          var distance = Math.abs(cardCenter - carouselCenter);
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestIndex = idx;
+          }
+        });
+
+        if (closestIndex !== carouselIndex) {
+          setActiveCard(closestIndex, false);
+        }
+      });
+    }
+
+    // SECTION REVEAL ANIMATION
+    var sectionEls = document.querySelectorAll('section');
+    if (sectionEls.length) {
+      sectionEls.forEach(function(section, index) {
+        section.classList.add('section-animate');
+        if (index % 3 === 0) {
+          section.classList.add('is-fast');
+        } else if (index % 3 === 2) {
+          section.classList.add('is-slow');
+        }
+      });
+
+      if ('IntersectionObserver' in window) {
+        var sectionObserver = new IntersectionObserver(function(entries, observer){
+          entries.forEach(function(entry){
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.15,
+          rootMargin: '0px 0px -10% 0px'
+        });
+
+        sectionEls.forEach(function(section){
+          sectionObserver.observe(section);
+        });
+      } else {
+        sectionEls.forEach(function(section){
+          section.classList.add('is-visible');
+        });
+      }
+    }
+
     // MAP LIGHTBOX
     var mapLightbox = document.getElementById('mapLightbox');
     var mapLightboxImage = mapLightbox ? mapLightbox.querySelector('.map-lightbox-image') : null;

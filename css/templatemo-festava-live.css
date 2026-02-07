@@ -42,6 +42,39 @@ body {
 }
 
 /*---------------------------------------
+  SECTION REVEAL ANIMATIONS
+-----------------------------------------*/
+.section-animate {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0) scale(0.995);
+  transition:
+    opacity 700ms ease,
+    transform 800ms ease;
+  will-change: opacity, transform;
+}
+
+.section-animate.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.section-animate.is-fast {
+  transition-duration: 520ms, 620ms;
+}
+
+.section-animate.is-slow {
+  transition-duration: 900ms, 1000ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-animate {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/*---------------------------------------
   TYPOGRAPHY               
 -----------------------------------------*/
 
@@ -368,8 +401,11 @@ strong {
 .sticky-wrapper.is-sticky .navbar {
   background-color: rgba(10, 10, 10, 0.55);
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  min-height: 72px;
-  height: 72px;
+  min-height: 68px;
+  height: 68px;
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .navbar {
@@ -384,6 +420,17 @@ strong {
   min-height: 72px;
   height: 72px;
   z-index: 9;
+  transition:
+    background-color 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    height 220ms ease,
+    min-height 220ms ease,
+    opacity 220ms ease,
+    transform 220ms ease;
+  opacity: 0.92;
+  transform: translateY(0);
+  will-change: transform, opacity, height;
 }
 
 .navbar > .container {
@@ -625,6 +672,121 @@ strong {
 .hero-section-three h1,
 .hero-section-four h1 {
   font-size: clamp(96px, 14vw, 180px);
+}
+
+/*---------------------------------------
+  EXPERIENCE CAROUSEL
+-----------------------------------------*/
+.experience-carousel-section {
+  padding: 90px 0 110px;
+  background: radial-gradient(circle at top, #ffffff 0%, #f6f1ea 45%, #efe6d8 100%);
+}
+
+.experience-title {
+  font-size: clamp(30px, 4vw, 48px);
+  letter-spacing: 0.02em;
+  margin-bottom: 8px;
+  color: #1e1e1e;
+}
+
+.experience-subtitle {
+  color: #6b6156;
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0;
+}
+
+.experience-carousel {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  position: relative;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 10px 20px 20px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.experience-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.experience-card {
+  flex: 0 0 auto;
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 18px 45px rgba(17, 16, 15, 0.18);
+  transform-origin: center;
+  transition: transform 0.35s ease, opacity 0.35s ease, box-shadow 0.35s ease;
+  background: #e6e1d9;
+  scroll-snap-align: center;
+}
+
+.experience-card img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.experience-card {
+  width: clamp(280px, 46vw, 680px);
+  height: clamp(210px, 32vw, 400px);
+  opacity: 0.85;
+}
+
+.experience-card.is-active {
+  opacity: 1;
+  transform: scale(1.03);
+  box-shadow: 0 24px 70px rgba(17, 16, 15, 0.28);
+}
+
+.experience-label {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  color: #1e1e1e;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.experience-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.experience-dots span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(30, 30, 30, 0.2);
+}
+
+.experience-dots .is-active {
+  background: #1e1e1e;
+}
+
+@media (max-width: 991px) {
+  .experience-carousel {
+    gap: 18px;
+    padding: 10px 12px 20px;
+  }
+
+  .experience-card {
+    width: min(520px, 84vw);
+    height: 220px;
+  }
 }
 
 /*---------------------------------------
@@ -1340,6 +1502,11 @@ body.map-lightbox-open {
     height: 76px;
     padding-left: 18px;
     padding-right: 18px;
+  }
+
+  .sticky-wrapper.is-sticky .navbar {
+    min-height: 72px;
+    height: 72px;
   }
 
   .navbar-expand-lg .navbar-nav {
