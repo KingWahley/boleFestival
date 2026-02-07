@@ -1,10 +1,4 @@
-/*
 
-TemplateMo 583 Festava Live
-
-https://templatemo.com/tm-583-festava-live
-
-*/
 
 /*---------------------------------------
   CUSTOM PROPERTIES ( VARIABLES )             
@@ -417,7 +411,7 @@ strong {
 .navbar-brand,
 .navbar-brand:hover {
   color: var(--white-color);
-  font-size: var(--h5-font-size);
+  font-size: var(--h6-font-size);
   font-weight: var(--font-weight-bold);
 }
 @media  (min-width: 992px) {
@@ -1350,6 +1344,7 @@ body.map-lightbox-open {
 
   .navbar-expand-lg .navbar-nav {
     padding-bottom: 30px;
+    
   }
 
   .navbar-expand-lg .navbar-nav .nav-link {
