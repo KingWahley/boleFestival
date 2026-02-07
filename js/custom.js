@@ -95,5 +95,59 @@
         });
       }
     }
+
+    // MAP LIGHTBOX
+    var mapLightbox = document.getElementById('mapLightbox');
+    var mapLightboxImage = mapLightbox ? mapLightbox.querySelector('.map-lightbox-image') : null;
+    var mapLightboxClose = mapLightbox ? mapLightbox.querySelector('.map-lightbox-close') : null;
+    var mapImages = document.querySelectorAll('.venue-map-image');
+
+    function openMapLightbox(src, altText) {
+      if (!mapLightbox || !mapLightboxImage) {
+        return;
+      }
+      mapLightboxImage.src = src;
+      mapLightboxImage.alt = altText || 'Venue map';
+      mapLightbox.classList.add('is-visible');
+      document.body.classList.add('map-lightbox-open');
+      mapLightbox.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeMapLightbox() {
+      if (!mapLightbox || !mapLightboxImage) {
+        return;
+      }
+      mapLightbox.classList.remove('is-visible');
+      document.body.classList.remove('map-lightbox-open');
+      mapLightbox.setAttribute('aria-hidden', 'true');
+      mapLightboxImage.src = '';
+      mapLightboxImage.alt = '';
+    }
+
+    if (mapImages.length && mapLightbox) {
+      mapImages.forEach(function(image) {
+        image.addEventListener('click', function() {
+          openMapLightbox(image.currentSrc || image.src, image.alt);
+        });
+      });
+
+      mapLightbox.addEventListener('click', function(event) {
+        if (event.target === mapLightbox) {
+          closeMapLightbox();
+        }
+      });
+
+      if (mapLightboxClose) {
+        mapLightboxClose.addEventListener('click', function() {
+          closeMapLightbox();
+        });
+      }
+
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && mapLightbox.classList.contains('is-visible')) {
+          closeMapLightbox();
+        }
+      });
+    }
   
   })(window.jQuery);
