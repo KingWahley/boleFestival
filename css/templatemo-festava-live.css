@@ -1366,6 +1366,20 @@ body.map-lightbox-open {
     font-size: 14px;
     padding: 10px 20px;
   }
+
+  .schedule-table th,
+  .schedule-table td {
+    padding: 16px;
+    font-size: 14px;
+  }
+
+  .schedule-table h3 {
+    font-size: 18px;
+  }
+
+  .schedule-table p {
+    font-size: 13px;
+  }
 }
 
 @media screen and (max-width: 480px) {
