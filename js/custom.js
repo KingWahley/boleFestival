@@ -281,5 +281,35 @@
         }
       });
     }
+
+    // HERO VIDEO AUTOPLAY (MOBILE SAFETY NET)
+    var heroVideo = document.querySelector('.custom-video');
+    if (heroVideo) {
+      heroVideo.muted = true;
+      heroVideo.playsInline = true;
+      heroVideo.setAttribute('playsinline', '');
+      heroVideo.setAttribute('webkit-playsinline', '');
+
+      var tryPlay = function() {
+        var playPromise = heroVideo.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(function() {});
+        }
+      };
+
+      if (document.readyState === 'complete') {
+        tryPlay();
+      } else {
+        window.addEventListener('load', tryPlay, { once: true });
+      }
+
+      var kickstart = function() {
+        tryPlay();
+        window.removeEventListener('touchstart', kickstart);
+        window.removeEventListener('click', kickstart);
+      };
+      window.addEventListener('touchstart', kickstart, { once: true, passive: true });
+      window.addEventListener('click', kickstart, { once: true });
+    }
   
   })(window.jQuery);
