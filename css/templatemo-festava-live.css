@@ -830,12 +830,29 @@ strong {
   SCHEDULE              
 -----------------------------------------*/
 .schedule-section {
-  background-image: url("../images/nainoa-shizuru-unsplash-blur.jpg");
+  position: relative;
   background-color: #242424;
+  overflow: hidden;
+}
+
+.schedule-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("https://scontent-los2-1.xx.fbcdn.net/v/t39.30808-6/488675869_1221779659957441_6421774453861002291_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_ohc=9Z4HC_AWa0gQ7kNvwENb-vk&_nc_oc=AdkBWhdMDOT57B2nSuIuuKx30AU9CaU9VOZk4WQFnKKHi0MkyFN3ljDHeiv-RZGcbhg&_nc_zt=23&_nc_ht=scontent-los2-1.xx&_nc_gid=8lNrLhE1cPYRtQjmTx8hqw&oh=00_AfsVKUARmJ_8D717jWuDc5zpaMk-by6P_s1pajjY5aqDzg&oe=698D631A");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  filter: blur(5px); 
+  transform: scale(1.1); 
+  z-index: 0;
 }
+
+.schedule-section > * {
+  position: relative;
+  z-index: 1;
+}
+
 .table-responsive {
   filter: drop-shadow(2px 2px 4px #606060);
 }
@@ -858,7 +875,15 @@ strong {
 .schedule-table tr,
 .schedule-table td {
   border-bottom-color: #363a3e;
-  padding: 30px;
+  padding: 20px;
+  
+  
+}
+
+.schedule-table td {
+   border: 1px solid #fff;
+  
+  
 }
 
 .schedule-table tr:last-child th,
@@ -879,16 +904,35 @@ strong {
   border-right-color: transparent;
 }
 
-.schedule-table .pop-background-image {
-  background-image: url("../images/artists/joecalih-UmTZqmMvQcw-unsplash.jpg");
+.schedule-table .kiddies-background-image {
+  background-image: url("../images/kiddies.jpg");
+}
+.schedule-table .kiddies2-background-image {
+  background-image: url("../images/kiddies\ 2.jpg");
+}
+.schedule-table .food-background-image {
+  background-image: url("../images/food.jpg");
+}
+.schedule-table .dj-background-image {
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1dB6wVwahEDfoFxQHA2cDQLQRgpB8Wkpvug&s");
+}
+.schedule-table .afro-background-image {
+  background-image: url("https://bolefestival.com/_next/image?url=%2Fgallery%2F25-23.webp&w=640&q=75");
+}
+.schedule-table .art-background-image {
+  background-image: url("https://bolefestival.com/_next/image?url=%2Fgallery%2F25-7.webp&w=640&q=75");
 }
 
 .schedule-table .rock-background-image {
-  background-image: url("../images/artists/abstral-official-bdlMO9z5yco-unsplash.jpg");
+  background-image: url("../images/party.jpg");
 }
 
-.schedule-table .country-background-image {
-  background-image: url("../images/artists/soundtrap-rAT6FJ6wltE-unsplash.jpg");
+.schedule-table .kiddies3-background-image {
+  background-image: url("https://scontent-los2-1.xx.fbcdn.net/v/t39.30808-6/489827883_1222869133181827_6101362633497253156_n.jpg?stp=c0.114.1616.1616a_dst-jpg_s640x640_tt6&_nc_cat=107&ccb=1-7&_nc_sid=714c7a&_nc_ohc=nNn0P2lnpuMQ7kNvwFvj6ov&_nc_oc=AdnmBeVE2Qsks0znqseBOwfhasJX5ZGx1Rll7BpqqCY-vH2SVid6vO6h_DTmtABzLAg&_nc_zt=23&_nc_ht=scontent-los2-1.xx&_nc_gid=ryCiPQoN9CJEWFprGuChtw&oh=00_AftJMYAc6I9yz00fZG2BLZGJDs_nt7JrzwEqmprHv2EqHw&oe=698D7152");
+}
+
+.schedule-table .party2-background-image {
+  background-image: url("https://bolefestival.com/_next/image?url=%2Fgallery%2F25-14.webp&w=640&q=75");
 }
 
 .table-background-image-wrap {
@@ -898,6 +942,20 @@ strong {
   box-shadow: none;
   position: relative;
 }
+
+.table-background-image-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85); 
+  z-index: 1;
+}
+
+.table-background-image-wrap > * {
+  position: relative;
+  z-index: 2;
+}
+
 
 .schedule-table h3,
 .schedule-table p {
@@ -1358,6 +1416,13 @@ body.map-lightbox-open {
 
   .ticket-form {
     padding: 30px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .schedule-section.section-padding {
+    padding-top: 70px;
+    padding-bottom: 70px;
   }
 }
 
