@@ -954,6 +954,103 @@ strong {
 }
 
 /*---------------------------------------
+  VENUE MAP              
+-----------------------------------------*/
+.venue-map-section {
+  background: linear-gradient(135deg, rgba(248, 203, 46, 0.12), rgba(238, 80, 7, 0.08));
+}
+
+.venue-card {
+  background: var(--white-color);
+  border-radius: var(--border-radius-medium);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+  padding: 40px;
+}
+
+.venue-kicker {
+  letter-spacing: 0.2em;
+  font-size: 12px;
+  font-weight: var(--font-weight-bold);
+  color: var(--secondary-color);
+  margin-bottom: 12px;
+}
+
+.venue-address {
+  color: var(--p-color);
+}
+
+.venue-meta {
+  display: grid;
+  row-gap: 16px;
+  margin-bottom: 28px;
+}
+
+.venue-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--dark-color);
+}
+
+.venue-meta-item span {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(238, 80, 7, 0.12);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--secondary-color);
+  font-size: 20px;
+}
+
+.venue-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.venue-map {
+  border-radius: var(--border-radius-medium);
+}
+
+.venue-map-item {
+  margin: 0;
+  border-radius: var(--border-radius-medium);
+  overflow: hidden;
+  background: var(--white-color);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+}
+
+.venue-map-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: 380px;
+  object-fit: cover;
+}
+
+.venue-map-item figcaption {
+  padding: 10px 10px 10px;
+  color: var(--dark-color);
+  font-weight: var(--font-weight-bold);
+}
+
+.venue-tab-content {
+  padding: 14px;
+}
+
+.venue-tabs .nav-link:first-child {
+  margin-right: 10px;
+}
+
+@media screen and (max-width: 991px) {
+  .venue-tab-content {
+    padding: 20px;
+  }
+}
+
+/*---------------------------------------
   CONTACT               
 -----------------------------------------*/
 .google-map {
