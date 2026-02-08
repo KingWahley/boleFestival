@@ -311,5 +311,31 @@
       window.addEventListener('touchstart', kickstart, { once: true, passive: true });
       window.addEventListener('click', kickstart, { once: true });
     }
+
+    // MOBILE NAV: HIDE ON LOAD, SHOW AFTER SCROLL
+    var mobileBreakpoint = 992;
+    var navRevealScroll = 8;
+    var navHiddenClass = 'nav-hidden';
+
+    function isMobileViewport() {
+      return window.innerWidth < mobileBreakpoint;
+    }
+
+    function updateNavVisibility() {
+      if (!isMobileViewport()) {
+        document.body.classList.remove(navHiddenClass);
+        return;
+      }
+
+      if (window.scrollY > navRevealScroll) {
+        document.body.classList.remove(navHiddenClass);
+      } else {
+        document.body.classList.add(navHiddenClass);
+      }
+    }
+
+    updateNavVisibility();
+    window.addEventListener('scroll', updateNavVisibility, { passive: true });
+    window.addEventListener('resize', updateNavVisibility);
   
   })(window.jQuery);

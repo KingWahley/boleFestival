@@ -1467,6 +1467,12 @@ body.map-lightbox-open {
   RESPONSIVE STYLES               
 -----------------------------------------*/
 @media screen and (max-width: 991px) {
+  body.nav-hidden .navbar {
+    opacity: 0;
+    transform: translateY(-16px);
+    pointer-events: none;
+  }
+
   h1 {
     font-size: 62px;
   }
