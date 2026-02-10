@@ -1076,6 +1076,22 @@ strong {
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
   }
+
+  .artists-section.is-mobile-scroll .row {
+    gap: 26px;
+    scroll-snap-type: y mandatory;
+  }
+
+  .artists-section.is-mobile-scroll .col-12,
+  .artists-section.is-mobile-scroll .col-md-6,
+  .artists-section.is-mobile-scroll .col-lg-4 {
+    scroll-snap-align: center;
+    scroll-margin-top: 120px;
+  }
+
+  .artists-section.is-mobile-scroll .artists-thumb {
+    margin-bottom: 6px;
+  }
 }
 
 /*---------------------------------------
