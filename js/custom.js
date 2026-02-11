@@ -332,6 +332,110 @@
       }
     }
 
+    // SCHEDULE PUZZLE ANIMATION
+    var scheduleTable = document.querySelector('.schedule-table');
+    if (scheduleTable) {
+      var schedulePieces = Array.prototype.slice.call(
+        scheduleTable.querySelectorAll('th, td')
+      );
+
+      schedulePieces.forEach(function(cell, index) {
+        cell.classList.add('puzzle-piece');
+        var direction = index % 4;
+        var offset = 48;
+        var x = 0;
+        var y = 0;
+
+        if (direction === 0) {
+          x = -offset;
+        } else if (direction === 1) {
+          x = offset;
+        } else if (direction === 2) {
+          y = -offset;
+        } else {
+          y = offset;
+        }
+
+        cell.style.setProperty('--puzzle-x', x + 'px');
+        cell.style.setProperty('--puzzle-y', y + 'px');
+        cell.style.setProperty('--puzzle-delay', (index * 40) + 'ms');
+      });
+
+      if ('IntersectionObserver' in window) {
+        var scheduleObserver = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              scheduleTable.classList.add('puzzle-ready');
+            } else {
+              scheduleTable.classList.remove('puzzle-ready');
+            }
+          });
+        }, {
+          threshold: 0.25
+        });
+
+        scheduleObserver.observe(scheduleTable);
+      } else {
+        scheduleTable.classList.add('puzzle-ready');
+      }
+    }
+
+    // PRICING BORDER "SNAKE" ANIMATION
+    var pricingSection = document.querySelector('.pricing-section');
+    var pricingThumbs = Array.prototype.slice.call(
+      document.querySelectorAll('.pricing-thumb')
+    );
+
+    if (pricingSection && pricingThumbs.length) {
+      var pricingObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            pricingThumbs.forEach(function(card) {
+              card.classList.add('is-border-animate');
+            });
+          } else {
+            pricingThumbs.forEach(function(card) {
+              card.classList.remove('is-border-animate');
+            });
+          }
+        });
+      }, {
+        threshold: 0.25
+      });
+
+      pricingObserver.observe(pricingSection);
+    }
+
+    // MERCH SECTION REVEAL
+    var merchSection = document.querySelector('.merch-section');
+    if (merchSection) {
+      var merchCards = Array.prototype.slice.call(
+        merchSection.querySelectorAll('.merch-card')
+      );
+
+      merchCards.forEach(function(card, index) {
+        card.style.setProperty('--merch-delay', (index * 120) + 'ms');
+      });
+
+      if ('IntersectionObserver' in window) {
+        var merchObserver = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              merchSection.classList.add('is-merch-visible');
+            } else {
+              merchSection.classList.remove('is-merch-visible');
+            }
+          });
+        }, {
+          threshold: 0.3
+        });
+
+        merchObserver.observe(merchSection);
+      } else {
+        merchSection.classList.add('is-merch-visible');
+      }
+    }
+
     // MAP LIGHTBOX
     var mapLightbox = document.getElementById('mapLightbox');
     var mapLightboxImage = mapLightbox ? mapLightbox.querySelector('.map-lightbox-image') : null;
@@ -435,6 +539,37 @@
       }
     }
 
+    // ABOUT PARALLAX
+    var aboutSection = document.querySelector('.about-section');
+    if (aboutSection) {
+      var reduceAboutMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reduceAboutMotion) {
+        var aboutTicking = false;
+
+        var updateAboutParallax = function() {
+          aboutTicking = false;
+          var rect = aboutSection.getBoundingClientRect();
+          var viewportH = window.innerHeight || document.documentElement.clientHeight;
+          var progress = (viewportH - rect.top) / (viewportH + rect.height);
+          var clamped = Math.max(0, Math.min(1, progress));
+          var shift = 50 + (clamped - 0.5) * 18;
+          aboutSection.style.setProperty('--about-parallax', shift + '%');
+        };
+
+        var onAboutScroll = function() {
+          if (aboutTicking) {
+            return;
+          }
+          aboutTicking = true;
+          window.requestAnimationFrame(updateAboutParallax);
+        };
+
+        updateAboutParallax();
+        window.addEventListener('scroll', onAboutScroll, { passive: true });
+        window.addEventListener('resize', updateAboutParallax);
+      }
+    }
+
     // HERO VIDEO AUTOPLAY (MOBILE SAFETY NET)
     var heroVideo = document.querySelector('.custom-video');
     if (heroVideo) {
@@ -469,6 +604,8 @@
     var mobileBreakpoint = 992;
     var navRevealScroll = 8;
     var navHiddenClass = 'nav-hidden';
+    var ticketRevealScroll = 120;
+    var navEl = document.querySelector('.navbar');
 
     function isMobileViewport() {
       return window.innerWidth < mobileBreakpoint;
@@ -477,6 +614,9 @@
     function updateNavVisibility() {
       if (!isMobileViewport()) {
         document.body.classList.remove(navHiddenClass);
+        if (navEl) {
+          navEl.classList.toggle('is-ticket-visible', window.scrollY > ticketRevealScroll);
+        }
         return;
       }
 
@@ -484,6 +624,10 @@
         document.body.classList.remove(navHiddenClass);
       } else {
         document.body.classList.add(navHiddenClass);
+      }
+
+      if (navEl) {
+        navEl.classList.toggle('is-ticket-visible', window.scrollY > ticketRevealScroll);
       }
     }
 

@@ -360,6 +360,26 @@ strong {
   color: var(--white-color);
 }
 
+.navbar-ticket-btn {
+  margin-left: auto;
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.navbar.is-ticket-visible .navbar-ticket-btn {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+@media screen and (max-width: 991px) {
+  .navbar-ticket-btn {
+    margin: 10px 0 0;
+  }
+}
+
 /*---------------------------------------
   VIDEO              
 -----------------------------------------*/
@@ -829,6 +849,7 @@ strong {
   background-color: #704010;
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center var(--about-parallax, 50%);
   position: relative;
 }
 
@@ -1232,6 +1253,29 @@ strong {
   z-index: 2;
 }
 
+.schedule-table .puzzle-piece {
+  opacity: 0;
+  transform: translate3d(var(--puzzle-x, 0), var(--puzzle-y, 0), 0) scale(0.96);
+  transition:
+    opacity 600ms ease,
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--puzzle-delay, 0ms);
+  will-change: transform, opacity;
+}
+
+.schedule-table.puzzle-ready .puzzle-piece {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .schedule-table .puzzle-piece {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 /*---------------------------------------
   PRICING              
 -----------------------------------------*/
@@ -1240,6 +1284,7 @@ strong {
   border-radius: var(--border-radius-medium);
   position: relative;
   padding: 50px;
+  overflow: hidden;
 }
 
 .pricing-thumb h3 small {
@@ -1288,6 +1333,256 @@ strong {
 
 .pricing-thumb .link-fx-1:hover {
   color: var(--link-hover-color);
+}
+
+.pricing-thumb::after {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border-radius: calc(var(--border-radius-medium) - 6px);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(248, 203, 46, 0.18), transparent 35%),
+    radial-gradient(circle at 80% 30%, rgba(238, 80, 7, 0.16), transparent 40%),
+    radial-gradient(circle at 35% 80%, rgba(255, 255, 255, 0.22), transparent 38%);
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 240ms ease, transform 300ms ease;
+}
+
+.pricing-thumb.is-border-animate::after {
+  opacity: 1;
+  transform: translateY(0);
+  animation: pricingSparkleDrift 3.2s ease-in-out infinite;
+}
+
+.pricing-thumb.is-border-animate {
+  animation: pricingCardFloat 1.8s ease-in-out infinite;
+}
+
+.pricing-thumb.is-border-animate .pricing-tag {
+  animation: pricingTagPop 1.4s ease-in-out infinite;
+  transform-origin: top right;
+}
+
+.pricing-thumb.is-border-animate h3,
+.pricing-thumb.is-border-animate p {
+  animation: pricingTextGlow 2.2s ease-in-out infinite;
+}
+
+@keyframes pricingSparkleDrift {
+  0%,
+  100% {
+    background-position: 0% 0%, 0% 0%, 0% 0%;
+  }
+  50% {
+    background-position: 10% 6%, -6% 8%, 8% -10%;
+  }
+}
+
+@keyframes pricingCardFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes pricingTagPop {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.08) rotate(-3deg);
+  }
+}
+
+@keyframes pricingTextGlow {
+  0%,
+  100% {
+    text-shadow: 0 0 0 rgba(248, 203, 46, 0);
+  }
+  50% {
+    text-shadow: 0 0 14px rgba(248, 203, 46, 0.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pricing-thumb.is-border-animate::after,
+  .pricing-thumb.is-border-animate,
+  .pricing-thumb.is-border-animate .pricing-tag,
+  .pricing-thumb.is-border-animate h3,
+  .pricing-thumb.is-border-animate p {
+    animation: none;
+  }
+}
+
+/*---------------------------------------
+  MERCHANDISE
+-----------------------------------------*/
+.merch-section {
+  background: linear-gradient(140deg, #fff6de 0%, #fff 45%, #f7efe2 100%);
+}
+
+.merch-kicker {
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  font-weight: var(--font-weight-bold);
+  color: var(--secondary-color);
+}
+
+.merch-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.merch-row > [class*="col-"] {
+  display: flex;
+  flex-direction: column;
+}
+
+.merch-row > [class*="col-"]:first-child {
+  justify-content: center;
+}
+
+.merch-row > [class*="col-"]:last-child {
+  justify-content: center;
+}
+
+.merch-card {
+  background: var(--white-color);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 45px rgba(18, 18, 18, 0.15);
+  display: grid;
+  grid-template-rows: 160px 1fr;
+  height: 100%;
+  opacity: 0;
+  transform: translate3d(0, 26px, 0) scale(0.98);
+  transition: opacity 600ms ease, transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--merch-delay, 0ms);
+}
+
+.merch-card-wide {
+  grid-template-rows: 210px 1fr;
+}
+
+.merch-section.is-merch-visible .merch-card {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.merch-section.is-merch-visible .merch-kicker,
+.merch-section.is-merch-visible h2,
+.merch-section.is-merch-visible p {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.merch-kicker,
+.merch-section h2,
+.merch-section p {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition: opacity 500ms ease, transform 600ms ease;
+}
+
+.merch-section.is-merch-visible .merch-kicker {
+  transition-delay: 80ms;
+}
+
+.merch-section.is-merch-visible h2 {
+  transition-delay: 140ms;
+}
+
+.merch-section.is-merch-visible p {
+  transition-delay: 200ms;
+}
+
+.merch-image {
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.merch-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.35));
+}
+
+.merch-hat {
+  background-image: url("https://bolefestival.com/_next/image?url=%2F2025-merch.webp&w=1920&q=75");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+.merch-bucket {
+  background-image: url("/images/bollehat.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+
+.merch-body {
+  padding: 24px;
+}
+
+.merch-body h4 {
+  margin-bottom: 8px;
+}
+
+.merch-body p {
+  margin-bottom: 16px;
+}
+
+.merch-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: #444;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.merch-meta .badge {
+  background: rgba(238, 80, 7, 0.12);
+  color: var(--secondary-color);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 11px;
+}
+
+@media screen and (max-width: 991px) {
+  .merch-card {
+    grid-template-rows: 180px 1fr;
+  }
+
+  .merch-card-wide {
+    grid-template-rows: 200px 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .merch-card,
+  .merch-kicker,
+  .merch-section h2,
+  .merch-section p {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /*---------------------------------------
