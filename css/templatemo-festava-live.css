@@ -798,9 +798,6 @@ strong {
 }
 
 .experience-label {
-  position: absolute;
-  left: 18px;
-  bottom: 18px;
   padding: 8px 16px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.85);
@@ -809,6 +806,39 @@ strong {
   font-size: 13px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+}
+
+.experience-actions {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 2;
+}
+
+.experience-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--secondary-color);
+  color: var(--white-color);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.experience-cta:hover,
+.experience-cta:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(238, 80, 7, 0.3);
+  color: var(--white-color);
 }
 
 .experience-dots {
@@ -1550,7 +1580,7 @@ strong {
   align-items: center;
   gap: 12px;
   font-size: 14px;
-  color: #444;
+
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
