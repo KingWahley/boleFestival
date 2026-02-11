@@ -1643,7 +1643,13 @@ strong {
 }
 
 .venue-map {
+  position: relative;
   border-radius: var(--border-radius-medium);
+}
+
+.venue-map nav {
+  position: relative;
+  z-index: 2;
 }
 
 .venue-map-item {
@@ -1671,15 +1677,51 @@ strong {
 
 .venue-tab-content {
   padding: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.venue-tabs {
+  flex-wrap: nowrap;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+  overflow: visible;
+}
+
+.venue-tabs .nav-link {
+  flex: 1 1 0;
+  min-width: 0;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: var(--dark-color);
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.venue-tabs .nav-link h5 {
+  color: inherit;
 }
 
 .venue-tabs .nav-link:first-child {
-  margin-right: 10px;
+  margin-right: 0;
 }
 
 @media screen and (max-width: 991px) {
   .venue-tab-content {
     padding: 20px;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .venue-tabs .nav-link {
+    padding: 10px 12px;
+  }
+
+  .venue-tabs .nav-link h5 {
+    font-size: 15px;
   }
 }
 
